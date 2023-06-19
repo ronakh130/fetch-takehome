@@ -1,0 +1,22 @@
+{
+  "name": "fetch-takehome",
+  "version": "1.0.0",
+  "description": "Takehome backend assessment for fetch",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server/index.js",
+    "dev": "nodemon ./server/index.js",
+    "test": "jest --verbose"
+  },
+  "author": "Ronak Hirpara",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "jest": "^29.5.0",
+    "nodemon": "^2.0.22",
+    "supertest": "^6.3.3"
+  }
+}
