@@ -4,17 +4,21 @@ const path = require('path');
 const port = 3000;
 const app = express();
 
+//initalize temporary, in-memory database
+app.locals.db = {};
+
 //parse incoming request
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //store receipt json
 app.post('/receipts/process', (req, res) => {
-  res.sendStatus(200);
+  res.status(200).json({id: 'test'});
 })
 
 //get points by id
 app.get('/receipts/:id/points', (req, res) => {
-  res.sendStatus(200);
+  res.status(200).jsonp({points: 10});
 });
 
 //catch all route for unknown endpoints
