@@ -1,4 +1,4 @@
-const { addPoints, isReceipt } = require("../server/controllers/processController");
+const { addPoints, isReceipt } = require('../server/controllers/processController');
 
 describe('processController', () => {
   const receipt = {
@@ -32,9 +32,9 @@ describe('processController', () => {
 
   describe('addPoints', () => {
     it('correctly adds points', () => {
-      expect(addPoints(receipt)).toBe(28)
-    })
-  })
+      expect(addPoints(receipt)).toBe(28);
+    });
+  });
 
   describe('isReceipt', () => {
     it('returns true with valid receipt', () => {
@@ -42,7 +42,7 @@ describe('processController', () => {
     });
 
     it('returns true with valid receipt', () => {
-      expect(isReceipt({...receipt, total: 1})).toBe(false);
+      expect(isReceipt({ ...receipt, total: 'hello' })).toBe(false);
     });
   });
 });

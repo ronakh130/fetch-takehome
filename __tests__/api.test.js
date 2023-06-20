@@ -16,7 +16,7 @@ describe('/receipts/process', () => {
     it('responds with 200 status and id object', (done) => {
       request(server)
         .post('/receipts/process')
-        .send({ receipt })
+        .send(receipt)
         .expect('Content-Type', /json/)
         .expect(200)
         .end((err, res) => {
