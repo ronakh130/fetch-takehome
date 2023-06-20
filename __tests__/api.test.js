@@ -16,7 +16,7 @@ describe('/receipts/process', () => {
     it('responds with 200 status and id object', (done) => {
       request(server)
         .post('/receipts/process')
-        .send(receipt)
+        .send({ receipt })
         .expect('Content-Type', /json/)
         .expect(200)
         .end((err, res) => {
@@ -30,9 +30,8 @@ describe('/receipts/process', () => {
 
   describe('when receipt is invalid', () => {
     it('responds with 400 status', (done) => {
-      request(server)
-        .post('/receipts/process')
-        .send({ fake: 'receipt' })
+      request(server).post('/receipts/process')
+        .send({ receipt: 'fake' })
         .expect(400, done);
     });
   });
@@ -57,7 +56,7 @@ describe('/receipts/:id/points', () => {
     it('responds with 404 status', (done) => {
       request(server)
         .get(`/receipts/${123}/points`)
-        .expect(404, done)
+        .expect(404, done);
     });
   });
 });
