@@ -30,10 +30,39 @@ describe('processController', () => {
     total: '35.35',
   };
 
+  const receipt2 = {
+    retailer: 'M&M Corner Market',
+    purchaseDate: '2022-03-20',
+    purchaseTime: '14:33',
+    items: [
+      {
+        shortDescription: 'Gatorade',
+        price: '2.25',
+      },
+      {
+        shortDescription: 'Gatorade',
+        price: '2.25',
+      },
+      {
+        shortDescription: 'Gatorade',
+        price: '2.25',
+      },
+      {
+        shortDescription: 'Gatorade',
+        price: '2.25',
+      },
+    ],
+    total: '9.00',
+  };
+
   describe('addPoints', () => {
     it('correctly adds points', () => {
       expect(addPoints(receipt)).toBe(28);
     });
+
+    it('correctly adds points to second receipt', () => {
+      expect(addPoints(receipt2)).toBe(109);
+    })
   });
 
   describe('isReceipt', () => {

@@ -5,7 +5,7 @@ const processController = {
     const receipt = req.body;
     const strReceipt = JSON.stringify(receipt);
     const { ids, allReceipts } = req.app.locals;
-    
+
     if (!isReceipt(receipt)) {
       return next({
         log: 'processController.calculatePoints: Not a valid receipt.',
@@ -13,9 +13,10 @@ const processController = {
         message: { err: 'ERROR: Please enter a valid receipt' },
       });
     }
-    
+
     if (!allReceipts.get(strReceipt)) {
       const id = uuidv4();
+
       ids[id] = addPoints(receipt);
       allReceipts.set(strReceipt, id);
     }
@@ -31,7 +32,7 @@ function addPoints(receipt) {
 
   // One point for every alphanumeric character in the retailer name.
   for (const char of retailer) {
-    if (char.match(/\S/g)) points++;
+    if (char.match(/^[a-zA-Z0-9]$/)) points++;
   }
 
   // 50 points if the total is a round dollar amount with no cents.
@@ -53,7 +54,7 @@ function addPoints(receipt) {
   if (parseInt(purchaseDate.slice(-2)) % 2 !== 0) points += 6;
 
   // 10 points if the time of purchase is after 2:00pm and before 4:00pm.
-  const hour = parseInt(purchaseTime.slice(2));
+  const hour = parseInt(purchaseTime.slice(0, 2));
   if (hour >= 14 && hour < 16) points += 10;
 
   return points;
@@ -66,6 +67,11 @@ function isReceipt(receipt) {
   const priceRegex = /^\d+(\.\d{2})?$/g;
 
   return (
+    retailer &&
+    purchaseDate &&
+    purchaseTime &&
+    items &&
+    total &&
     typeof retailer === 'string' &&
     dateRegex.test(purchaseDate.match(dateRegex)) &&
     timeRegex.test(purchaseTime.match(timeRegex)) &&
